@@ -61,16 +61,23 @@ async def on_guild_channel_update(before, after):
         if overwrite is None:
             overwrite_before = next((ow for ow in before.overwrites if isinstance(ow, discord.PermissionOverwrite) and ow.is_owner(bot.user)), None)
             if overwrite_before is None and isinstance(after, discord.TextChannel):
-                sticker_ids = [1190231601544708116]
+                sticker_ids = [1243206026208088165]
                 await autosend_stickers(after, sticker_ids)
 
+@bot.event
+async def on_member_join(member):
+    # 當新成員加入時發送貼圖
+    await send_stickers(member, [1243206026208088165])
 
 @bot.event
 async def on_message(message):
     # 忽略bot自己的消息，防止自我回复
     if message.author == bot.user:
         return
-
+    # # # 检查消息是否包含贴图
+    if message.stickers:
+        for sticker in message.stickers:
+            await message.channel.send(f'Sticker ID: {sticker.id}, Sticker Name: {sticker.name}')
     if (message.content.lower() == 'hi' or message.content.lower() == '嗨') and message.author.id != 1112074895984185375:
         await message.channel.send('嗨老人')
     elif (message.content.lower() == '……' or message.content.lower() == '咕' or message.content.lower() == '腳毛獎') and message.author.id != 1112074895984185375:
@@ -85,7 +92,7 @@ async def on_message(message):
 
     elif '寫' in message.content.lower() and '完' in message.content.lower() and \
         not any(word in message.content.lower() for word in negation_words):
-        await send_stickers(message, [1188690816353439775])
+        await send_stickers(message, [1243207349343223870])
     elif '寫' in message.content.lower() and '完' in message.content.lower() and any(word in message.content.lower() for word in negation_words):
         await message.channel.send(f'寫完了')
     elif '危' in message.content.lower() and ('高雄' in message.content.lower() or '台北' in message.content.lower() or '台南' in message.content.lower() or '基隆' in message.content.lower() or '開車' in message.content.lower() or '路上' in message.content.lower()):
@@ -144,7 +151,7 @@ async def on_message(message):
 
 
     elif message.mentions and bot.user in message.mentions :
-        await send_stickers(message, [1190231601544708116])
+        await send_stickers(message, [1243206026208088165])
 
 
     # 确保所有消息都通过 bot.process_commands
