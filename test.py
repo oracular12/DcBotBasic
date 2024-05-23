@@ -75,9 +75,9 @@ async def on_message(message):
     if message.author == bot.user:
         return
     # # # 检查消息是否包含贴图
-    if message.stickers:
-        for sticker in message.stickers:
-            await message.channel.send(f'Sticker ID: {sticker.id}, Sticker Name: {sticker.name}')
+    # if message.stickers:
+    #     for sticker in message.stickers:
+    #         await message.channel.send(f'Sticker ID: {sticker.id}, Sticker Name: {sticker.name}')
     if (message.content.lower() == 'hi' or message.content.lower() == '嗨') and message.author.id != 1112074895984185375:
         await message.channel.send('嗨老人')
     elif (message.content.lower() == '……' or message.content.lower() == '咕' or message.content.lower() == '腳毛獎') and message.author.id != 1112074895984185375:
@@ -113,7 +113,7 @@ async def on_message(message):
 
     elif message.mentions and bot.user in message.mentions and "功能" in message.content.lower():
         await message.channel.send(
-            f"```@2號後：\n"
+            f"```@我後：\n"
             f"運勢輸入：'運勢'\n"
             f"猜拳輸入：'猜拳', '剪刀石頭布'\n"
             f"梭哈輸入：'梭哈', '沙蟹', '曬冷', '話事啤', 'stud'\n"
